@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, DB, dbf, PQConnection, SQLDB, Forms, Controls, Graphics,
-  Dialogs, DBGrids;
+  Dialogs, DBGrids, Grids;
 
 type
 
@@ -18,7 +18,8 @@ type
     PQConnection1: TPQConnection;
     SQLQuery1: TSQLQuery;
     SQLTransaction1: TSQLTransaction;
-    procedure FormCreate(Sender: TObject);
+    procedure DBGrid1PrepareCanvas(Sender: TObject; DataCol: integer;
+      Column: TColumn; AState: TGridDrawState);
   private
 
   public
@@ -34,9 +35,19 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TForm1.DBGrid1PrepareCanvas(Sender: TObject; DataCol: integer;
+  Column: TColumn; AState: TGridDrawState);
+var
+  ts: TTextStyle;
 begin
-  SQLQuery1.SQL.Text := 'select * from books';
+  ts := DBGrid1.Canvas.TextStyle;
+  ts.SingleLine := False;
+  ts.Wordbreak := True;
+  DBGrid1.Canvas.TextStyle := ts;
+
+  if Column.Field.AsString = 'Hallo du da' then
+    (Sender as TDBGrid).Canvas.Brush.Color := clGreen;
+
 end;
 
 end.

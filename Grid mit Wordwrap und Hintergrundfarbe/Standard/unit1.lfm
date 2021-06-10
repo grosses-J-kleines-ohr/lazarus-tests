@@ -1,22 +1,24 @@
 object Form1: TForm1
-  Left = 699
-  Height = 666
-  Top = 209
-  Width = 963
+  Left = 1057
+  Height = 859
+  Top = 122
+  Width = 400
   Caption = 'Form1'
-  ClientHeight = 666
-  ClientWidth = 963
-  OnCreate = FormCreate
+  ClientHeight = 859
+  ClientWidth = 400
   LCLVersion = '2.0.12.0'
   object DBGrid1: TDBGrid
-    Left = 16
-    Height = 100
-    Top = 96
-    Width = 200
+    Left = 8
+    Height = 832
+    Top = 16
+    Width = 384
     Color = clWindow
     Columns = <>
     DataSource = DataSource1
+    DefaultRowHeight = 60
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisplayMemoText]
     TabOrder = 0
+    OnPrepareCanvas = DBGrid1PrepareCanvas
   end
   object PQConnection1: TPQConnection
     Connected = True
@@ -27,29 +29,47 @@ object Form1: TForm1
     Transaction = SQLTransaction1
     UserName = 'postgres'
     HostName = '127.0.0.1'
-    Left = 32
-    Top = 8
+    Left = 48
+    Top = 504
   end
   object SQLTransaction1: TSQLTransaction
     Active = True
     Database = PQConnection1
-    Left = 120
-    Top = 8
+    Left = 168
+    Top = 504
   end
   object SQLQuery1: TSQLQuery
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'book_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'data'
+        DataType = ftUnknown
+        Precision = -1
+      end    
+      item
+        Name = 'text'
+        DataType = ftMemo
+        Precision = -1
+      end>
+    Active = True
     Database = PQConnection1
     Transaction = SQLTransaction1
     SQL.Strings = (
       'SELECT * FROM public.books'
     )
     Params = <>
-    Left = 216
-    Top = 8
+    Left = 48
+    Top = 584
   end
   object DataSource1: TDataSource
     DataSet = SQLQuery1
-    Left = 296
-    Top = 8
+    Left = 168
+    Top = 584
   end
 end
